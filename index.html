@@ -261,6 +261,8 @@
     <div class="progress-bar-wrap">
       <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
     </div>
+    <p style="font-size:1.1rem; color:#b07080; font-style:italic; margin-bottom:6px;">Para mi amor...</p>
+    <p style="font-family:inherit; font-size:2rem; font-weight:700; color:#e8476a; margin-bottom:20px;">Kerlly Victoria💕</p>
     <span class="emoji-big" id="qEmoji">💭</span>
     <h1 id="qTitle">Cargando...</h1>
     <p class="subtitle" id="qSub"></p>
@@ -288,6 +290,9 @@
     <div class="firework">🎉🌸💖🌸🎉</div>
     <p class="final-title">Eres la mejor novia del mundo</p>
     <p class="final-msg" id="finalMsg"></p>
+    <div style="margin: 20px auto 24px; border-radius: 20px; overflow: hidden; max-width: 340px; box-shadow: 0 8px 32px rgba(232,71,106,0.25); border: 3px solid #f9c6d0;">
+      <img src="Foto.jpeg" alt="Nosotros 💕" style="width:100%; display:block;">
+    </div>  
     <div class="badge">🏆 Título Oficial: La Novia Perfecta</div>
     <br>
     <button class="restart-btn" onclick="restart()">Volver a jugar 🔁</button>
@@ -525,6 +530,16 @@ function restart() {
 
 // INIT
 renderQuestion();
+</script>
+<audio id="bgMusic" loop>
+  <source src="cancion.mp3" type="audio/mpeg">
+</audio>
+<script>
+  document.addEventListener('click', function startMusic() {
+    var audio = document.getElementById('bgMusic');
+    if (audio.paused) audio.play();
+    document.removeEventListener('click', startMusic);
+  });
 </script>
 </body>
 </html>
