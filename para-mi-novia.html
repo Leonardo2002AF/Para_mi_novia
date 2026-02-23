@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Mi Novia Preciosa💕</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rose: #e8476a;
+    --blush: #f9c6d0;
+    --cream: #fff8f9;
+    --deep: #2a0a14;
+    --gold: #f0c060;
+  }
+
+  body {
+    min-height: 100vh;
+    background: var(--cream);
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Floating hearts background */
+  .hearts-bg {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    overflow: hidden;
+  }
+  .heart-float {
+    position: absolute;
+    font-size: 1.4rem;
+    opacity: 0.15;
+    animation: floatUp linear infinite;
+  }
+
+  @keyframes floatUp {
+    0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.18; }
+    90%  { opacity: 0.12; }
+    100% { transform: translateY(-10vh) rotate(25deg); opacity: 0; }
+  }
+
+  /* Card */
+  .card {
+    position: relative; z-index: 1;
+    background: #fff;
+    border-radius: 28px;
+    padding: 48px 52px;
+    max-width: 580px;
+    width: 92vw;
+    box-shadow: 0 12px 60px rgba(232,71,106,0.13), 0 2px 8px rgba(0,0,0,0.04);
+    border: 1.5px solid #f9e0e6;
+    text-align: center;
+  }
+
+  .progress-bar-wrap {
+    height: 5px;
+    background: #fde8ed;
+    border-radius: 10px;
+    margin-bottom: 36px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--rose), var(--gold));
+    border-radius: 10px;
+    transition: width 0.5s ease;
+  }
+
+  .emoji-big { font-size: 3.4rem; margin-bottom: 14px; display: block; }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--deep);
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    color: #b07080;
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+
+  .opt-btn {
+    padding: 15px 24px;
+    border-radius: 14px;
+    border: 2px solid transparent;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.22s;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+  }
+
+  .opt-btn.correct {
+    background: linear-gradient(135deg, var(--rose), #f06080);
+    color: #fff;
+    border-color: #e03060;
+    box-shadow: 0 4px 20px rgba(232,71,106,0.3);
+  }
+  .opt-btn.correct:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(232,71,106,0.4);
+  }
+
+  .opt-btn.wrong {
+    background: #f4f4f4;
+    color: #888;
+    border-color: #e0e0e0;
+  }
+  .opt-btn.wrong:hover {
+    background: #f9e6ea;
+    border-color: #f0b0be;
+    color: var(--rose);
+  }
+
+  /* === Trap question styles === */
+  #trap-section { display: none; position: relative; }
+
+  .trap-q {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    color: var(--deep);
+    margin-bottom: 40px;
+    line-height: 1.35;
+  }
+
+  #btn-si {
+    background: linear-gradient(135deg, var(--rose), #f06080);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(232,71,106,0.35);
+    position: relative;
+  }
+  #btn-si:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 32px rgba(232,71,106,0.45);
+  }
+
+  #btn-no {
+    background: #f0f0f0;
+    color: #aaa;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    font-family: 'Lato', sans-serif;
+    cursor: pointer;
+    position: absolute;
+    transition: font-size 0.3s, padding 0.3s;
+  }
+
+  .trap-buttons {
+    position: relative;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* === Final screen === */
+  #final-section {
+    display: none;
+  }
+  .firework { font-size: 2.5rem; animation: pop 0.6s ease both; }
+  @keyframes pop {
+    0% { transform: scale(0); opacity: 0; }
+    70% { transform: scale(1.3); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .final-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.1rem;
+    color: var(--rose);
+    margin: 18px 0 10px;
+    font-style: italic;
+  }
+
+  .final-msg {
+    font-size: 1.05rem;
+    color: #7a4050;
+    line-height: 1.7;
+    margin-bottom: 26px;
+  }
+
+  .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold), #f0a040);
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    padding: 10px 28px;
+    border-radius: 50px;
+    font-size: 1rem;
+    box-shadow: 0 4px 18px rgba(240,160,60,0.35);
+    margin-bottom: 20px;
+  }
+
+  .restart-btn {
+    background: none;
+    border: 1.5px solid #f0b0be;
+    color: var(--rose);
+    border-radius: 50px;
+    padding: 9px 22px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s;
+  }
+  .restart-btn:hover { background: var(--rose); color: #fff; }
+
+  /* feedback flash */
+  .feedback {
+    font-size: 0.95rem;
+    margin-top: 18px;
+    min-height: 22px;
+    color: var(--rose);
+    font-style: italic;
+    transition: opacity 0.3s;
+  }
+
+  @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 60%{transform:translateX(8px)} }
+  .shake { animation: shake 0.35s ease; }
+
+  @keyframes heartPop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.25); }
+    100% { transform: scale(1); }
+  }
+  .heart-pop { animation: heartPop 0.4s ease; }
+</style>
+</head>
+<body>
+
+<div class="hearts-bg" id="heartsBg"></div>
+
+<div class="card" id="mainCard">
+
+  <!-- TRIVIA SECTION -->
+  <div id="trivia-section">
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+    </div>
+    <span class="emoji-big" id="qEmoji">💭</span>
+    <h1 id="qTitle">Cargando...</h1>
+    <p class="subtitle" id="qSub"></p>
+    <div class="options" id="optionsBox"></div>
+    <p class="feedback" id="feedback"></p>
+  </div>
+
+  <!-- TRAP SECTION -->
+  <div id="trap-section">
+    <span class="emoji-big">💍</span>
+    <p class="trap-q" id="trapQ">¿Quieres pasar el resto de tu vida conmigo?</p>
+    <div class="trap-buttons" id="trapButtons">
+      <button id="btn-si" onclick="siClicked()" style="font-size:1.1rem; padding:16px 40px;">
+        Sí, por supuesto 💕
+      </button>
+      <button id="btn-no" onclick="noClicked()" style="font-size:0.95rem; padding:10px 22px; top:80px; left:10px;">
+        No
+      </button>
+    </div>
+    <p class="feedback" id="trapFeedback" style="min-height:20px;"></p>
+  </div>
+
+  <!-- FINAL SECTION -->
+  <div id="final-section">
+    <div class="firework">🎉🌸💖🌸🎉</div>
+    <p class="final-title">Eres la mejor novia del mundo</p>
+    <p class="final-msg" id="finalMsg"></p>
+    <div class="badge">🏆 Título Oficial: La Novia Perfecta</div>
+    <br>
+    <button class="restart-btn" onclick="restart()">Volver a jugar 🔁</button>
+  </div>
+
+</div>
+
+<script>
+// ===================== FLOATING HEARTS =====================
+const heartsBg = document.getElementById('heartsBg');
+const heartChars = ['💕','🌸','💗','✨','💖','🌷','💝','⭐'];
+for (let i = 0; i < 18; i++) {
+  const h = document.createElement('div');
+  h.className = 'heart-float';
+  h.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
+  h.style.left = Math.random() * 100 + 'vw';
+  h.style.animationDuration = (10 + Math.random() * 18) + 's';
+  h.style.animationDelay = (Math.random() * 20) + 's';
+  h.style.fontSize = (1 + Math.random() * 1.2) + 'rem';
+  heartsBg.appendChild(h);
+}
+
+// ===================== TRIVIA DATA =====================
+const questions = [
+  {
+    emoji: '💕',
+    q: '¿Cuál es la mejor descripción de tu novio?',
+    sub: 'Elige sabiamente...',
+    opts: [
+      { text: 'Guapo, divertido y súper romántico ✨', correct: true },
+      { text: 'Más o menos', correct: false },
+      { text: 'Solo está ahí', correct: false },
+      { text: 'Podría mejorar', correct: false },
+    ],
+    yay: '¡Exactamente! Muy buena respuesta 😏',
+    nay: 'Hmm... inténtalo de nuevo con más sinceridad 😉'
+  },
+  {
+    emoji: '🌙',
+    q: '¿Qué significa para ti nuestra historia?',
+    sub: 'Solo hay una respuesta correcta aquí.',
+    opts: [
+      { text: 'Mi capítulo favorito 📖', correct: true },
+      { text: 'Un bonito recuerdo', correct: false },
+      { text: 'Algo del pasado', correct: false },
+      { text: 'Un accidente feliz', correct: false },
+    ],
+    yay: '¡Eso es lo más bonito que alguien puede decir! 🥹',
+    nay: 'Sigue intentando, sé que en el fondo lo sabes 💕'
+  },
+  {
+    emoji: '🌸',
+    q: '¿Qué tan especial eres tú?',
+    sub: 'Responde con total honestidad.',
+    opts: [
+      { text: 'La persona más especial de todo el universo 🌌', correct: true },
+      { text: 'Bastante especial', correct: false },
+      { text: 'Normal, como todos', correct: false },
+      { text: 'No lo sé', correct: false },
+    ],
+    yay: '¡Al fin la respuesta correcta! Porque sí lo eres 💖',
+    nay: '¡Equivocada! Eres mucho más que eso 💕'
+  },
+  {
+    emoji: '🎀',
+    q: '¿Cuánto te quiero yo a ti?',
+    sub: 'Piénsalo bien antes de responder.',
+    opts: [
+      { text: 'Más que a nada en el mundo entero 💞', correct: true },
+      { text: 'Mucho', correct: false },
+      { text: 'Bastante', correct: false },
+      { text: 'Un poquito', correct: false },
+    ],
+    yay: '¡Exactamente correcto! ¿Ves? Ya lo sabías 😊',
+    nay: '¡No! La respuesta es: más que a nada en el mundo 🌍💖'
+  },
+];
+
+let current = 0;
+let noCount = 0;
+let siSize = 1.1;
+
+// ===================== TRIVIA LOGIC =====================
+function renderQuestion() {
+  const q = questions[current];
+  const total = questions.length + 1;
+  document.getElementById('progressBar').style.width = (current / total * 100) + '%';
+  document.getElementById('qEmoji').textContent = q.emoji;
+  document.getElementById('qTitle').textContent = q.q;
+  document.getElementById('qSub').textContent = q.sub;
+  document.getElementById('feedback').textContent = '';
+
+  // Shuffle options
+  const shuffled = [...q.opts].sort(() => Math.random() - 0.5);
+  const box = document.getElementById('optionsBox');
+  box.innerHTML = '';
+  shuffled.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn ' + (opt.correct ? 'correct' : 'wrong');
+    btn.textContent = opt.text;
+    btn.onclick = () => handleAnswer(opt.correct, q.yay, q.nay, btn);
+    box.appendChild(btn);
+  });
+}
+
+function handleAnswer(correct, yay, nay, btn) {
+  if (correct) {
+    document.getElementById('feedback').textContent = yay;
+    // disable all
+    document.querySelectorAll('.opt-btn').forEach(b => b.style.pointerEvents = 'none');
+    btn.classList.add('heart-pop');
+    setTimeout(() => {
+      current++;
+      if (current < questions.length) {
+        renderQuestion();
+      } else {
+        showTrap();
+      }
+    }, 1100);
+  } else {
+    document.getElementById('feedback').textContent = nay;
+    btn.classList.add('shake');
+    btn.style.pointerEvents = 'none';
+    setTimeout(() => {
+      btn.classList.remove('shake');
+      btn.style.pointerEvents = '';
+    }, 400);
+  }
+}
+
+// ===================== TRAP SECTION =====================
+function showTrap() {
+  document.getElementById('trivia-section').style.display = 'none';
+  document.getElementById('trap-section').style.display = 'block';
+
+  // update progress
+  document.getElementById('progressBar').style.width = '90%';
+
+  // place no button randomly but not overlapping si
+  randomizeNo();
+}
+
+function randomizeNo() {
+  const btn = document.getElementById('btn-no');
+  const container = document.getElementById('trapButtons');
+  const cW = container.offsetWidth || 400;
+  const cH = container.offsetHeight || 120;
+  const bW = btn.offsetWidth || 90;
+  const bH = btn.offsetHeight || 44;
+
+  // keep no away from center where si lives
+  let x, y;
+  do {
+    x = Math.random() * (cW - bW - 20) + 10;
+    y = Math.random() * (cH - bH - 10) + 5;
+  } while (Math.abs(x - cW/2) < 80 && y < 70);
+
+  btn.style.left = x + 'px';
+  btn.style.top  = y + 'px';
+}
+
+function noClicked() {
+  noCount++;
+  const btn = document.getElementById('btn-no');
+  const msgs = [
+    '¿Segura? 🥺', '¡Vamos, piénsalo bien! 💕', '¿De verdad? 😢',
+    '¡No te lo creo! 💖', '¡Última oportunidad! 🥹'
+  ];
+  document.getElementById('trapFeedback').textContent = msgs[Math.min(noCount - 1, msgs.length - 1)];
+
+  // shrink no button a bit (min size)
+  const currentSize = parseFloat(btn.style.fontSize) || 0.95;
+  const newSize = Math.max(0.5, currentSize - 0.12);
+  btn.style.fontSize = newSize + 'rem';
+
+  // grow si button
+  siSize = Math.min(2.4, siSize + 0.18);
+  const si = document.getElementById('btn-si');
+  si.style.fontSize = siSize + 'rem';
+  si.style.padding = (16 + noCount * 3) + 'px ' + (40 + noCount * 6) + 'px';
+
+  // move no button
+  randomizeNo();
+
+  if (noCount >= 7) {
+    btn.style.display = 'none';
+    document.getElementById('trapFeedback').textContent = '¡El botón "No" escapó! Solo queda una opción 💕';
+  }
+}
+
+function siClicked() {
+  document.getElementById('progressBar').style.width = '100%';
+  showFinal();
+}
+
+// ===================== FINAL =====================
+const finalMessages = [
+  'Completaste el quiz con el corazón en el lugar correcto. 💕\n\nDesde el primer día supe que eras diferente a todas y me gustaste mucho. Tu risa(me encanta), tu forma de mirarme (me enloquece).\n\nEres mi aventura favorita y quiero vivir miles de ellas contigo. Te amo mi princesa👑✨'
+];
+
+function showFinal() {
+  document.getElementById('trap-section').style.display = 'none';
+  document.getElementById('final-section').style.display = 'block';
+  document.getElementById('finalMsg').textContent = finalMessages[0];
+
+  // Burst many hearts
+  for (let i = 0; i < 10; i++) {
+    setTimeout(() => {
+      const h = document.createElement('div');
+      h.className = 'heart-float';
+      h.textContent = ['💕','💖','🌸','✨','💗'][Math.floor(Math.random()*5)];
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.animationDuration = '4s';
+      h.style.animationDelay = '0s';
+      h.style.fontSize = (1.5 + Math.random()) + 'rem';
+      h.style.opacity = '0.7';
+      heartsBg.appendChild(h);
+      setTimeout(() => h.remove(), 5000);
+    }, i * 200);
+  }
+}
+
+function restart() {
+  current = 0; noCount = 0; siSize = 1.1;
+  document.getElementById('btn-no').style.display = '';
+  document.getElementById('btn-no').style.fontSize = '0.95rem';
+  document.getElementById('btn-si').style.fontSize = '1.1rem';
+  document.getElementById('btn-si').style.padding = '16px 40px';
+  document.getElementById('trapFeedback').textContent = '';
+  document.getElementById('final-section').style.display = 'none';
+  document.getElementById('trap-section').style.display = 'none';
+  document.getElementById('trivia-section').style.display = 'block';
+  renderQuestion();
+}
+
+// INIT
+renderQuestion();
+</script>
+</body>
+</html>
