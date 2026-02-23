@@ -23,7 +23,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow-y: auto;
     position: relative;
   }
 
@@ -248,6 +248,18 @@
     100% { transform: scale(1); }
   }
   .heart-pop { animation: heartPop 0.4s ease; }
+  @media (max-width: 480px) {
+    .card { padding: 20px 14px; }
+    h1 { font-size: 1.1rem; }
+    .opt-btn { font-size: 0.8rem; padding: 11px 10px; }
+    .final-title { font-size: 1.25rem; }
+    .final-msg { font-size: 0.82rem; line-height: 1.6; }
+    .emoji-big { font-size: 2.2rem; margin-bottom: 8px; }
+    .trap-q { font-size: 1.2rem; margin-bottom: 20px; }
+    .badge { font-size: 0.8rem; padding: 8px 16px; }
+    .subtitle { font-size: 0.8rem; margin-bottom: 18px; }
+    .feedback { font-size: 0.82rem; }
+  }
 </style>
 </head>
 <body>
